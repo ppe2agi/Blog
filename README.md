@@ -1,6 +1,23 @@
-# 我的 Python 学习笔记
+# 我的 Python 学习自动化博客
 
-欢迎来到我的博客！这里记录了我的 Python 脚本。
+这是由脚本自动生成的项目文档，更新时间自动同步。
 
-## 项目列表
-* [Hello World 脚本](./hello_world.py)
+## 脚本：hello_world.py
+```python
+#!/usr/bin/python3
+if __name__ == "__main__":
+    print('hello world')
+    print(100+200)
+    input("Press Enter to exit...")
+#测试
+print('github')
+print("github")
+a=12345
+#测试提交
+b=a
+print(b)
+
+```
+
+---
+
