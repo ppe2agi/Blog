@@ -1,4 +1,4 @@
-<sub>made by chanvel | 更新时间: 2025-12-24 22:15</sub>
+<sub>made by chanvel | 更新时间: 2025-12-24 22:25</sub>
 
-# 🚀 源码仓库索引
-- [🤔 Python 语言源码库](./python/README.md) —— 共收录 0 个案例
+# 🚀 自动化代码库
+- [👉 点击进入 Python 源码详情页](./python/README.md) —— 已整合 0 个案例
