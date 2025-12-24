@@ -1,6 +1,7 @@
-# 🐍 Python 学习笔记<br><sub>made by chanvel</sub>
+# 🐍 Python 学习笔记
+<sub><font color='#888'>made by chanvel</font></sub>
 
-这里记录了从 .py 文件中自动提取的详细源码和案例。
+这里记录了从 .py 文件中自动提取的源码和案例。
 
 ---
 
