@@ -5,7 +5,7 @@ from datetime import datetime
 current_date = datetime.now().strftime('%Y-%m-%d')
 author_info = "made by chanvel"
 # 你设定的新标题
-project_title = "言出法随 除减加乘 知行合一" 
+project_title = "知行合一" 
 # 你的自定义域名
 domain_name = "blog.ppe2agi.qzz.io"
 
