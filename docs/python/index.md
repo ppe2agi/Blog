@@ -1,7 +1,6 @@
-# 🤔 Python 语言
-<sub><font color='#888'>made by chanvel</font></sub>
+# 🤔 Python 语言案例
 
-### 📄 文件名: hello_world.py
+### 📄 hello_world.py
 
 ```python
 #!/usr/bin/python3
@@ -23,7 +22,7 @@ input()
 
 ---
 
-### 📄 文件名: test.py
+### 📄 test.py
 
 ```python
 print('test')

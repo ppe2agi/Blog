@@ -1,6 +1,6 @@
-# 欢迎来到我的代码库
+# 🏠 我的 Python 代码库
 
-<sub><font color='#888'>made by chanvel | 最近更新: 2025-12-24</font></sub>
+<sub>made by chanvel | 更新日期: 2025-12-24</sub>
 
-### 内容分类
-- [🤔 Python 语言](./python/index.md)
+## 导航
+- [🤔 Python 语言案例](./python/index.md)
