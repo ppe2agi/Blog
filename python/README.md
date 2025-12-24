@@ -1,4 +1,4 @@
-# 🐍 Python 学习笔记 <sub>made by chanvel</sub>
+# 🐍 Python 学习笔记<br><sub>made by chanvel</sub>
 
 这里记录了从 .py 文件中自动提取的详细源码和案例。
 
