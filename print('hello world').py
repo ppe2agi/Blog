@@ -7,3 +7,6 @@ if __name__ == "__main__":
 print('github')
 print("github")
 a=12345
+#测试提交
+b=a
+print(b)
