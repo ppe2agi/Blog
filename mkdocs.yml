@@ -1,0 +1,31 @@
+site_name: 我的自动化文档  # 网页左上角的标题
+theme:
+  name: material
+  language: zh            # 界面中文支持
+  palette: 
+    # 夜间模式自动切换
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到暗黑模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到亮色模式
+  features:
+    - navigation.tabs      # 顶部横向导航栏
+    - search.suggest       # 搜索建议
+    - search.highlight     # 搜索关键词高亮
+
+markdown_extensions:
+  - pymdownx.highlight:    # 代码高亮
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
