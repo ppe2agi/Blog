@@ -19,7 +19,6 @@ def build():
     
     # 定义通用的页脚，两个文件都能用
     common_footer = [
-        f"\n---",
         f"> 更新时间: {NOW}  ",
         "made by **chanvel**"
     ]
