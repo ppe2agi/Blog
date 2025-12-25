@@ -35,7 +35,7 @@ python目前用3.0以上版本，本blog不介绍2.0了。
 
 至于windows,还是mac,或是linux发行版，以后玩转操作系统了，我们再深扒这些，网上的安装教程太多，笔者十几年的windows用户，后来虽然支持开源，但习惯性使用ubuntu。
 
-个人觉着debian是真稳定，但没法子，用的nvidia显卡，而nvidia和linux大佬的恩怨，导致专用驱动在ubuntu上表现较好，咱也不纠结这个了，至于arch、redhat等发行版，咱也不多说，希望linux多点适配软件，少点发行版吧。
+个人觉着debian是真稳定，但没法子，用的nvidia显卡，而nvidia和linux大佬的恩怨，导致专用驱动在linux发行版上一言难尽，好在ubuntu上表现较好，咱也不纠结这个了，至于arch、redhat等发行版，咱也不多说，希望linux多点适配软件，少点发行版吧。
 
 言归正传，python在不同系统上都有强大的库支持，随意安装。
 
@@ -91,4 +91,4 @@ input()和output()，构成了最基本的IO。
 
 
 ---
-made by chanvel   |   2025-12-25 16:02
+made by chanvel   |   2025-12-25 16:06
