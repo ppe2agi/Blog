@@ -40,19 +40,18 @@ def build():
     py_files = sorted(SRC.glob('*.py'), key=get_sort_key)
     footer = [f"\n\n更新时间: {NOW}", "made by **chanvel**"]
     
-    # 1. 详情页 (python/README.md)：去掉段落间的 ---
-    sub_body = ["# 📄 源代码详情", f"\n[⬅️ 返回主页](../README.md)\n"]
+    # 1. 详情页 (python/README.md)
+    # 修改：返回按钮改为 [源代码汇总]，删除标题
+    sub_body = [f"[源代码汇总](../README.md)\n"]
     for py in py_files:
         sub_body.extend([f"### {py.stem}", process_py(py)])
     SRC_MD.write_text("\n".join(sub_body + footer), encoding='utf-8')
 
-    # 2. 主页 (README.md)：仅保留连接到详情页的入口
-    root_body = [
-        "# 📚 项目主页",
-        f"\n- [📁 点击查看 Python 源代码详情 ({len(py_files)})](./python/README.md)"
-    ]
+    # 2. 主页 (README.md)
+    # 修改：入口文本改为 [Python源代码]，删除标题
+    root_body = [f"- [Python源代码](./python/README.md)"]
     ROOT_MD.write_text("\n".join(root_body + footer), encoding='utf-8')
 
 if __name__ == "__main__":
     build()
-    print(f"✨ 构建完成：主页已简化，详情页内容已同步。")
+    print(f"✨ 构建成功！文本已按需精简。")
