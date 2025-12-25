@@ -27,7 +27,6 @@ def build():
     markdown_segments = [
         f"# 🤔 Python 源码汇总\n",
         f"[⬅️ 返回首页](../README.md)\n",
-        "---\n"
     ]
 
     for py in py_files:
@@ -38,7 +37,6 @@ def build():
                 '<div style="white-space: pre-wrap; word-wrap: break-word;">\n',
                 f"```python\n{code_content}\n```",
                 "</div>\n",
-                "---\n"
             ]
             markdown_segments.extend(segment)
         except Exception as e:
@@ -51,7 +49,6 @@ def build():
     # --- 2. 生成根目录 README.md (项目入口) ---
     # 使用列表加法 [+] 来合并内容，这样逻辑最清晰
     root_content = [
-        "# 🚀 代码库主页\n",
         f"- [📁 Python 源码详情](./python/README.md) ({len(py_files)} 个案例文件)\n",
     ] + common_footer
     
