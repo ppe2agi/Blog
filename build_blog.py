@@ -55,8 +55,10 @@ def build():
     root_content = [
         f"- [📁 Python 源码详情](./python/README.md) ({len(py_files)} 个案例文件)\n",
         "---",
-        f"最后同步日期: `{NOW}`  ",
+         footer = [
+        f"\n> 更新时间: {NOW}  ",
         "made by chanvel"
+    ]
     ]
     ROOT_MD.write_text('\n'.join(root_content), encoding='utf-8')
 
