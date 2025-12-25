@@ -1,6 +1,3 @@
-# 强制清空主题自动抓取的标题和描述
-title: " "
-description: " "
-
-# 建议换成极简主题，它没有巨大的背景块，不会重叠
+title: "言出法随"
+description: "编程实验室 made by chanvel"
 theme: jekyll-theme-cayman
