@@ -10,7 +10,7 @@ ROOT_MD = Path('README.md')
 SRC_MD = SRC / 'README.md'
 
 def process_py_content(file_path):
-    """提取 Python 文件内容并转换为 MD"""
+    """提取 Python 文件内容并转换为 Markdown"""
     lines = file_path.read_text(encoding='utf-8', errors='replace').splitlines()
     processed_parts = []
     current_code_block = []
@@ -39,7 +39,6 @@ def process_py_content(file_path):
     return "\n".join(processed_parts)
 
 def build():
-    # 确保目录存在
     if not SRC.exists():
         SRC.mkdir(exist_ok=True)
         return
@@ -47,31 +46,42 @@ def build():
     py_files = sorted(SRC.glob('*.py'))
     
     # 定义通用的页脚
-    common_footer = "\n---\n更新时间: " + NOW + "  \nmade by **chanvel**"
+    common_footer = [
+        "\n<br>\n",
+        "---",
+        f"**更新时间:** {NOW}  ",
+        "made by **chanvel**"
+    ]
     
-    # --- 1. 生成子目录 python/README.md ---
-    # 使用字符串直接拼接确保格式最稳固
-    sub_md_header = "---\nlayout: default\ntitle: Python 源码详情\n---\n\n"
-    sub_md_body = "[⬅️ 返回首页](../README.md)\n\n"
+    # --- 1. 生成 python/README.md ---
+    # 第一个一级标题会被 Cayman 抓取到顶部背景中
+    sub_md = [
+        "# Python 源代码详情\n", 
+        f"[⬅️ 返回首页](../README.md)\n",
+    ]
 
     for py in py_files:
         try:
-            sub_md_body += "### 📄 " + py.name + "\n"
-            sub_md_body += process_py_content(py) + "\n"
-            print("✅ 已处理: " + py.name)
+            # 文件名使用二级标题 (##)，它会留在白色正文区
+            sub_md.append(f"## 📄 {py.name}\n")
+            sub_md.append(process_py_content(py))
+            print(f"✅ 已同步: {py.name}")
         except Exception as e:
-            print("❌ 错误: " + str(e))
+            print(f"❌ 错误: {e}")
     
-    SRC_MD.write_text(sub_md_header + sub_md_body + common_footer, encoding='utf-8')
+    sub_md.extend(common_footer)
+    SRC_MD.write_text('\n'.join(sub_md), encoding='utf-8')
 
     # --- 2. 生成根目录 README.md ---
-    # 严格遵循 YAML Front Matter 规范
-    root_md_header = "---\nlayout: default\ntitle: 源代码主页\n---\n\n"
-    root_md_body = "### 📚 项目案例\n"
-    root_md_body += "- [📁 点击查看 Python 源代码](./python/README.md) (共 " + str(len(py_files)) + " 个案例)\n"
+    # 第一个一级标题会被 Cayman 抓取到顶部背景中
+    root_md = [
+        "# 源代码主页\n",
+        "### 📂 项目目录",
+        f"- [📁 点击进入 Python 源代码仓库](./python/README.md) ({len(py_files)} 个案例文件)",
+    ] + common_footer
     
-    ROOT_MD.write_text(root_md_header + root_md_body + common_footer, encoding='utf-8')
+    ROOT_MD.write_text('\n'.join(root_md), encoding='utf-8')
 
 if __name__ == "__main__":
     build()
-    print("\n✨ 构建成功！请提交代码并在 GitHub 仓库的 'Actions' 页面观察构建进度。")
+    print("\n✨ 构建完成！请推送到 GitHub 并在 Settings 中确保主题为 Cayman。")
