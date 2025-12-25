@@ -20,9 +20,6 @@ def build():
     # 1. 生成 python/README.md (源码详情页)
     markdown_segments = [
         f"# 🤔 Python 源码汇总\n",
-        f"> 更新时间: {NOW}  ",
-        f"[⬅️ 返回首页](../README.md)\n",
-        "---\n"
     ]
 
     for py in py_files:
@@ -41,6 +38,12 @@ def build():
             markdown_segments.extend(segment)
         except Exception as e:
             print(f"❌ 读取 {py.name} 失败: {e}")
+    
+     markdown_segments = [
+        f"[⬅️ 返回首页](../README.md)\n",
+        f"> 更新时间: {NOW}  ",
+        "made by chanvel"
+    ]
 
     SRC_MD.write_text('\n'.join(markdown_segments), encoding='utf-8')
 
