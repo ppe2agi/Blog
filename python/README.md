@@ -26,12 +26,12 @@ python目前用3.0以上版本，本blog不介绍2.0了。
 3、Python解释器
 不同平台，不同cpu上，有不同的解释器，简单说来，就是让python最终控制0和1,不要纠结过程。
 
-### 二、hello world!
+### 二、hello,world!
 
 ```python
-print('hello world!')
+print('hello,world!')
 ```
 
 
 ---
-made by chanvel   |   2025-12-25 14:31
+made by chanvel   |   2025-12-25 14:46
