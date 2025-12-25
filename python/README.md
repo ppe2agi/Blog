@@ -29,7 +29,7 @@
 
 以后再介绍笔者心目中的大佬，linux和git的创始人。
 
-我们先从python的大佬开始,先拜个码头：荷兰人，Guido Van Rossum“龟叔”。
+我们先从python的大佬开始,先拜个山头：荷兰人，Guido Van Rossum“龟叔”。
 
 python目前用3.0以上版本，本blog不介绍2.0了。
 
@@ -347,7 +347,7 @@ print(abc)    #输出是[]
 
 示例
 
-7# 7 除以 3
+7 除以 3
 
 
 ```python
@@ -489,4 +489,4 @@ print(data_emoji)  # 输出: b'\xf0\x9f\x90\x8d'
 
 
 ---
-made by chanvel   |   2025-12-25 19:13
+made by chanvel   |   2025-12-25 19:47
