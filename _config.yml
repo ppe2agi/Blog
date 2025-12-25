@@ -1,3 +1,6 @@
-title: 言出法随
-description: 这里实验编程语言
-theme: jekyll-theme-cayman
+# 强制清空主题自动抓取的标题和描述
+title: " "
+description: " "
+
+# 建议换成极简主题，它没有巨大的背景块，不会重叠
+theme: jekyll-theme-minimal
