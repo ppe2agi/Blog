@@ -52,17 +52,24 @@ def process_py(p):
 
 def build():
     SRC.mkdir(exist_ok=True)
-    # 使用自定义排序
+    # 保持原有的 glob 和排序
     py_files = sorted(SRC.glob('*.py'), key=get_sort_key)
     
     # 修改页脚样式
     footer = [f"\n---\nmade by chanvel   |   {NOW}"]
     
     # 1. 详情页 (python/README.md)
-    # p.stem 会保留所有原始字符，包括英文空格
     sub_body = [f"[源代码汇总](../README.md)\n"]
+    
     for py in py_files:
-        sub_body.extend([f"### {py.stem}", process_py(py)])
+        # --- 核心修正点：确保标题前后有足够的换行符 ---
+        # 原代码 sub_body.extend([f"### {py.stem}", process_py(py)]) 
+        # 容易导致标题和内容粘在一起，Markdown 无法识别
+        sub_body.append(f"\n---\n") # 添加分割线更清晰
+        sub_body.append(f"### {py.stem}\n") # 标题后加换行
+        sub_body.append(process_py(py))
+        # ------------------------------------------
+
     SRC_MD.write_text("\n".join(sub_body + footer), encoding='utf-8')
 
     # 2. 主页 (README.md)
