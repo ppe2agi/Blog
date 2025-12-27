@@ -268,12 +268,12 @@ print("结束3")    # 第三步
 # 5、条件判断
 # 5.1 if then/用:进行了替换，并且换行强制向右缩进
 # 示例
-if 1 then print(1) # 其他语言
+# if 1 then print(1) # 其他语言
 if 1: 
     print(1)       # python的写法
 
 # 二元模型
-if 真1假0: 
+if 2 > 1:          # 判断条件
     print("1 执行")  # 如果真，执行这个
 else:
     print("0 执行")  # 如果假，执行这个
@@ -292,6 +292,7 @@ else:
 # 5.2 match
 # 针对if...elif...elif...else的简化
 # 示例
+value=2
 match value:
     case 1:
         print("执行1")

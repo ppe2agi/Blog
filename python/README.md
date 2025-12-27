@@ -618,9 +618,10 @@ print("结束3")    # 第三步
 
 示例
 
+if 1 then print(1) # 其他语言
+
 
 ```python
-if 1 then print(1) # 其他语言
 if 1: 
     print(1)       # python的写法
 ```
@@ -630,7 +631,7 @@ if 1:
 
 
 ```python
-if 真1假0: 
+if 2 > 1:          # 判断条件
     print("1 执行")  # 如果真，执行这个
 else:
     print("0 执行")  # 如果假，执行这个
@@ -661,6 +662,7 @@ else:
 
 
 ```python
+value=2
 match value:
     case 1:
         print("执行1")
@@ -802,4 +804,4 @@ break和continue最大的区别是，break是彻底退出循环，而continue只
 
 
 ---
-made by chanvel   |   2025-12-27 18:53
+made by chanvel   |   2025-12-27 18:57
