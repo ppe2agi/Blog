@@ -49,7 +49,7 @@ python目前用3.0以上版本，本blog不介绍2.0了。至于用windows,还�
 
 1.2 I/O
 
-input()和output()，构成了最基本的IO。
+input()和output()，构成了最基本的IO。python中output是print()函数，input()是输入函数。
 
 print()函数，可以打印多个字符串，中间用','隔开，','会在输出后形成空格，可以可以打印计算,比如下面的输出都是2,加入字符串查看区别。
 
@@ -805,4 +805,4 @@ break和continue最大的区别是，break是彻底退出循环，而continue只
 
 
 ---
-made by chanvel   |   2025-12-27 18:58
+made by chanvel   |   2025-12-27 19:00
