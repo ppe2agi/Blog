@@ -29,27 +29,25 @@ def process_py(p):
             text = m.group(1)
             stripped = text.lstrip()
             
-            # 1. 细线处理：彻底防止标题加粗
-            if re.match(r'^[=\-]{3,}$', stripped):
-                content.append("\n---\n")
-            
-            # 2. 标题行：强制序号占 2em (2个汉字) 宽度
-            elif re.match(r'^(\d+[\.、\s]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped):
+            # 1. 标题行：序号占用 2em，文字从第 3 位开始对齐
+            if re.match(r'^(\d+[\.、\s]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped):
                 h = re.match(r'^(\d+[\.、]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、])', stripped)
                 if h:
                     pre, rest = h.group(1).rstrip(), stripped[h.end():].lstrip()
-                    # inline-block 确保 pre 部分宽度恒定为 2em
-                    content.append(f'<span style="display:inline-block; width:2em;">{pre}</span>{rest}<br>')
+                    # 使用 table 保证左列宽度恒定为 2em
+                    content.append(f'<table><tr><td width="2em">{pre}</td><td>{rest}</td></tr></table>')
                 else:
                     content.append(f"{stripped}<br>")
             
-            # 3. 正文行：精准缩进 2 字符
+            # 2. 正文行：强制缩进 2 字符 (使用 2个全角空格)
             else:
-                content.append(f"&emsp;&emsp;{stripped}<br>" if stripped else "<br>")
+                content.append(f"　　{stripped}<br>" if stripped else "<br>")
+        
         elif not line.strip():
             flush(); content.append("<br>")
         else:
             code_acc.append(line)
+            
     flush()
     return "\n".join(content)
 
