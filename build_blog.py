@@ -23,13 +23,13 @@ def process_py(p):
         code_acc.clear()
 
     for line in p.read_text(encoding='utf-8').splitlines():
-        # 匹配 # 及其后所有内容，保留注释内部的所有原始空格
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
-            # 获取 # 后的原始文本，不做 lstrip，直接保留源码缩进
-            text = m.group(1)
-            # 使用 <br> 强制换行，文字将按源码中的空格原样呈现
+            # 关键修改：使用 lstrip() 删掉 # 号后面可能存在的那个半角空格
+            text = m.group(1).lstrip() 
+            
+            # 保持你的简约逻辑，直接添加换行
             content.append(f"{text}<br>")
         elif not line.strip():
             flush(); content.append("<br>")
