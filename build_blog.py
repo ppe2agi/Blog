@@ -26,13 +26,14 @@ def process_py(p):
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
-            # 1. 彻底清除行首空格，解决【汉诺塔】缩进问题
+            # 1. 彻底清除行首空格，解决【汉诺塔】等块的幽灵缩进
             text = m.group(1).lstrip()
             
-            # 2. 优雅防止自动列表：在数字标题后加两个 HTML 空格
-            # 这样既能对齐，又不会出现 3\、 这种乱码
-            if re.match(r'^\d+[\.、]', text):
-                text = text.replace('.', '.&nbsp;', 1).replace('、', '、&nbsp;', 1)
+            # 2. 核心修复：处理多级序号（如 4.3.2）
+            # 将所有点号替换为 HTML 实体 &#46; 彻底切断 GitHub 的自动列表逻辑
+            # 这样既不会出现 3\、 乱码，也能保证文字绝对顶格
+            if re.match(r'^\d', text):
+                text = text.replace('.', '&#46;')
             
             content.append(f"{text}<br>")
         elif not line.strip():
@@ -48,15 +49,14 @@ def build():
     py_files = sorted(SRC.glob('*.py'), key=get_sort_key)
     footer = [f"\n---\nmade by chanvel   |   {NOW}"]
     
-    # 构建子页
     sub_body = ["[源代码汇总](../README.md)\n"]
     for py in py_files:
         sub_body.extend([f"### {py.stem}", process_py(py)])
+    
+    # 写入文件，确保编码统一
     SRC_MD.write_text("\n".join(sub_body + footer), encoding='utf-8')
-
-    # 构建主页
     ROOT_MD.write_text("\n".join([f"[Python源代码](./python/README.md)"] + footer), encoding='utf-8')
 
 if __name__ == "__main__":
     build()
-    print(f"✨ 构建成功！已实现标题顶格对齐与正文精准缩进。")
+    print(f"✨ 构建完成：已修复多级序号缩进，确保 Page 渲染与源码一致。")
