@@ -26,27 +26,27 @@ def process_py(p):
     content, code_acc = [], []
     def flush():
         if code_acc and any(l.strip() for l in code_acc):
-            # 确保代码块前后都有空行
-            content.append("\n```python")
-            content.extend(code_acc)
-            content.append("```\n")
+            content.append(f"\n```python\n" + "\n".join(code_acc) + "\n```\n")
         code_acc.clear()
 
-    lines = p.read_text(encoding='utf-8').splitlines()
-    for line in lines:
-        # 匹配注释行 # 
+    for line in p.read_text(encoding='utf-8').splitlines():
+        # 匹配 # 及其后面的所有内容（包含空格）
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
-            text = m.group(1).rstrip()
-            # 修复逻辑：如果注释是以列表符号（1. 或 -）开头，
-            # 或者是特定的标题/分隔符，确保它能触发 Markdown 格式
-            content.append(text)
+            comment_text = m.group(1)
+            # 处理逻辑：
+            # 1. 如果是空注释行，添加空行
+            # 2. 否则添加内容，并在末尾加 <br> 强制换行，确保排版一致
+            if not comment_text.strip():
+                content.append("")
+            else:
+                # 使用 <br> 是在 GitHub 上保持“所见即所得”最稳妥的方式
+                content.append(f"{comment_text}  ") 
         elif not line.strip():
             flush()
-            # 关键：确保段落之间至少有一个真正的空行
             if content and content[-1] != "":
-                content.append("") 
+                content.append("")
         else:
             code_acc.append(line)
     flush()
