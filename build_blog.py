@@ -26,10 +26,13 @@ def process_py(p):
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
-            # 关键修改：使用 lstrip() 删掉 # 号后面可能存在的那个半角空格
-            text = m.group(1).lstrip() 
+            # 1. 删掉行首空格，解决【汉诺塔】行的缩进问题
+            text = m.group(1).lstrip()
             
-            # 保持你的简约逻辑，直接添加换行
+            # 2. 防止数字开头被识别为列表：在点(.)或冒号(：)前加一个反斜杠转义
+            # 这样 GitHub 就会把它当做普通纯文本渲染，而不是 4. 5. 6. 列表
+            text = re.sub(r'^(\d+)([\.、])', r'\1\\\2', text)
+            
             content.append(f"{text}<br>")
         elif not line.strip():
             flush(); content.append("<br>")
