@@ -29,19 +29,16 @@ def process_py(p):
             text = m.group(1)
             stripped = text.lstrip()
             
-            # 1. 标题行：序号占用 2em，文字从第 3 位开始对齐
-            if re.match(r'^(\d+[\.、\s]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped):
-                h = re.match(r'^(\d+[\.、]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、])', stripped)
-                if h:
-                    pre, rest = h.group(1).rstrip(), stripped[h.end():].lstrip()
-                    # 使用 table 保证左列宽度恒定为 2em
-                    content.append(f'<table><tr><td width="2em">{pre}</td><td>{rest}</td></tr></table>')
-                else:
-                    content.append(f"{stripped}<br>")
-            
-            # 2. 正文行：强制缩进 2 字符 (使用 2个全角空格)
+            # 标题行：匹配序号 (如 1. / 1.1 / 1、 / 一、)
+            h = re.match(r'^(\d+[\.、]|\d+(\.\d+)+|[\u4e00-\u9fa5]+[、])', stripped)
+            if h:
+                pre = h.group(1).rstrip()
+                rest = stripped[h.end():].lstrip()
+                # 核心逻辑：序号后固定补 2 个全角空格，强行把文字推到第 3 位对齐线
+                content.append(f"{pre}&emsp;&emsp;{rest}<br>")
             else:
-                content.append(f"　　{stripped}<br>" if stripped else "<br>")
+                # 正文行：强制首行缩进 2 字符位
+                content.append(f"&emsp;&emsp;{stripped}<br>" if stripped else "<br>")
         
         elif not line.strip():
             flush(); content.append("<br>")
