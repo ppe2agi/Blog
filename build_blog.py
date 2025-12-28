@@ -36,18 +36,18 @@ def process_py(p):
             flush()
             text = m.group(1)
             
-            # 1. 核心修改：将长串的 = 或 - 替换为标准的 MD 细分隔符 ---
-            # 为了防止它把上一行文字变成“粗标题”，必须在前后强制加空行
+            # 1. 处理分隔符：转为 MD 细线，并在前后加空行防止上一行文字变粗
             if re.match(r'^[=\-]{3,}$', text.strip()):
-                content.append("\n---\n") 
+                content.append("\n---\n")
             
-            # 2. 普通内容排版：在每行末尾添加 <br> 强制换行
-            # 这能保证 GitHub 上的排版和你代码里的注释行 1:1 对应
+            # 2. 处理文字行：实现首行缩进 + 强制换行
             else:
                 if not text.strip():
                     content.append("<br>")
                 else:
-                    content.append(f"{text}<br>") 
+                    # 在每一行注释前面手动加上两个全角空格（约等于 2 个汉字宽度）
+                    # 末尾加 <br> 确保 GitHub 不合并行
+                    content.append(f"　　{text}<br>") 
         
         elif not line.strip():
             flush()
