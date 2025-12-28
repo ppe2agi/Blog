@@ -30,19 +30,24 @@ def process_py(p):
         code_acc.clear()
 
     for line in p.read_text(encoding='utf-8').splitlines():
-        # 匹配 # 及其后面的内容，保留所有原始空格
+        # 匹配注释行，保留原始空格
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
             text = m.group(1)
             
-            # 为了防止 === 和 --- 被识别为 MD 样式（粗线/横线）
-            # 我们在行尾添加 <br>，这样既能强制换行，又能保留符号原文
-            if not text.strip():
-                content.append("<br>")
+            # 1. 核心修改：将长串的 = 或 - 替换为标准的 MD 细分隔符 ---
+            # 为了防止它把上一行文字变成“粗标题”，必须在前后强制加空行
+            if re.match(r'^[=\-]{3,}$', text.strip()):
+                content.append("\n---\n") 
+            
+            # 2. 普通内容排版：在每行末尾添加 <br> 强制换行
+            # 这能保证 GitHub 上的排版和你代码里的注释行 1:1 对应
             else:
-                # 核心逻辑：每一行末尾都加 <br>，GitHub 就不会合并行，也不会把 === 当成标题指令
-                content.append(f"{text}<br>") 
+                if not text.strip():
+                    content.append("<br>")
+                else:
+                    content.append(f"{text}<br>") 
         
         elif not line.strip():
             flush()
