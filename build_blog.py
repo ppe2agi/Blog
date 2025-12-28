@@ -48,28 +48,24 @@ def process_py(p):
             text = m.group(1)
             stripped = text.lstrip()
             
-            # 1. 细线处理：前后加空行防止标题加粗
+            # 1. 细线处理：前后加空行，防止标题被加粗成 H2
             if re.match(r'^[=\-]{3,}$', stripped):
                 content.append("\n---\n")
             
-            # 2. 识别并转换标题行：将 1.1 或 1、 转换为全角 １．１ 或 １、
-            elif re.match(r'^(\d+[\.、\s]|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped):
-                # 只对行首的序号部分进行全角转换
-                header_match = re.match(r'^(\d+[\.、\s]*)', stripped)
-                if header_match:
-                    prefix = to_full_width(header_match.group(1))
-                    rest = stripped[header_match.end():]
-                    content.append(f"\n{prefix}{rest}<br>")
-                else:
-                    content.append(f"\n{stripped}<br>")
+            # 2. 识别序号行（顶格显示）
+            # 匹配 1. / 1、 / 1.1 / 一、 / 【
+            elif re.match(r'^(\d+[\.、\s]|\d+\.\d+|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped):
+                # 标题行不加缩进，直接输出
+                content.append(f"{stripped}<br>")
             
-            # 3. 正文文本：使用 2 个全角空格实现完美对齐
+            # 3. 正文文本：增加缩进深度
             else:
                 if not text.strip():
                     content.append("<br>")
                 else:
-                    # 此时标题占 2 个位，正文缩进 2 个全角空格，视觉上完美垂直对齐
-                    content.append(f"　　{stripped}<br>") 
+                    # 使用 2个全角空格(　) + 2个半角空格(&nbsp;) 
+                    # 这样能拉开正文与序号的间距，更有层次感
+                    content.append(f"　　&nbsp;&nbsp;{stripped}<br>") 
         
         elif not line.strip():
             flush()
