@@ -26,12 +26,13 @@ def process_py(p):
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
-            # 1. 删掉行首空格，解决【汉诺塔】行的缩进问题
+            # 1. 彻底清除行首空格，解决【汉诺塔】缩进问题
             text = m.group(1).lstrip()
             
-            # 2. 防止数字开头被识别为列表：在点(.)或冒号(：)前加一个反斜杠转义
-            # 这样 GitHub 就会把它当做普通纯文本渲染，而不是 4. 5. 6. 列表
-            text = re.sub(r'^(\d+)([\.、])', r'\1\\\2', text)
+            # 2. 优雅防止自动列表：在数字标题后加两个 HTML 空格
+            # 这样既能对齐，又不会出现 3\、 这种乱码
+            if re.match(r'^\d+[\.、]', text):
+                text = text.replace('.', '.&nbsp;', 1).replace('、', '、&nbsp;', 1)
             
             content.append(f"{text}<br>")
         elif not line.strip():
