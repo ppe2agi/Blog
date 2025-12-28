@@ -30,28 +30,29 @@ def process_py(p):
         code_acc.clear()
 
     for line in p.read_text(encoding='utf-8').splitlines():
+        # 匹配注释行并保留原始空格
         m = re.match(r'^\s*#\s?(.*)', line)
         if m:
             flush()
             text = m.group(1)
             stripped_text = text.lstrip()
             
-            # 1. 处理细线：转为 MD 分隔符，前后加换行防止标题化
+            # 1. 处理细线：将连续 = 或 - 转为 MD 细线，前后加空行防加粗
             if re.match(r'^[=\-]{3,}$', stripped_text):
                 content.append("\n---\n")
             
-            # 2. 判断是否为“小标题”或“列表项”（不缩进）
-            # 匹配规则：以数字序号(1.)、列表符(-)、或中文括号【开头
-            elif re.match(r'^(\d+\.|-|\*|【)', stripped_text):
+            # 2. 判断是否为“序号/标题行”（不缩进）：
+            # 匹配 1. 或 1、 或 一、 或 【 或 列表符 -
+            elif re.match(r'^(\d+[\.、]|[\u4e00-\u9fa5]+[、]|【|-|\*)', stripped_text):
                 content.append(f"{text}<br>")
             
-            # 3. 普通正文文本（执行首行缩进 2 字符）
+            # 3. 纯正文文本：执行首行缩进 2 字符
             else:
                 if not text.strip():
                     content.append("<br>")
                 else:
-                    # 使用 &nbsp; 或全角空格实现缩进
-                    content.append(f"&nbsp;&nbsp;{text}<br>") 
+                    # 使用两个全角空格（　）实现标准的 2 字符缩进
+                    content.append(f"　　{text}<br>") 
         
         elif not line.strip():
             flush()
