@@ -9,7 +9,20 @@
 # 如果说“面向过程”是在写运行脚本，OOP的过程像数字孪生，在构建一个平行宇宙。
 # 第一部分：核心模型（蓝图与实体）
 # 2.1 类与实例 (Class & Instance)：类是厨房的设计图纸，定义了功能与规格；实例是实际建造出来的厨房。没有图纸造不出厨房，有了图纸可以造出无数个完全一样的厨房。
+class Kitchen:
+    pass        # 定义一个厨房类
+mykc=Kitchen()  # 实例化一个厨房对象
+print(Kitchen)  # <class '__main__.Kitchen'>
+print(mykc)     # <__main__.Kitchen object at 0x7......>
 # 2.2 类的内置属性 (Built-in Attributes)：如同厨房的基本参数，如厨房的名称、核定容量、地理位置。
+class Kitchen(object):  # 继承自object类
+    def __init__(self, name, capacity):
+        self.name = name            # 厨房名称
+        self.capacity = capacity    # 核定容量
+mykc = Kitchen("主厨房", 10)  # 创建一个厨房实例
+print(mykc.name)      # 输出厨房名称：主厨房
+print(mykc.capacity)  # 输出厨房容量：10
+# 类起到了模板作用，创建实例的时候，通过__init__方法初始化属性，第一个参数永远是self,表示实例本身，name等后续都是是实例属性
 # 2.3 对象的生命周期 (Lifecycle)：从动工建造（初始化）、开火营业，到最终拆除废弃的整个过程。
 
 # 第二部分：三大特性（规则与交互）
